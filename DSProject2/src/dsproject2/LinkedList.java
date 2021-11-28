@@ -15,10 +15,10 @@ public class LinkedList {
     public int size;
 //
 
-    public void insertFirst(String name, String CCode, int year, double value){ // A method to insert a block into to the beginning of a list.
-        Node tmp = new Node(name, CCode, year, value);
-        tmp.next = head;
-        head= tmp;
+    public void insertFirst(Node n){ // A method to insert a block into to the beginning of a list.
+
+        n.next = head;
+        head= n;
        // if(head!=null)
          //   head.prev = tmp;
        // head = tmp;
@@ -37,18 +37,11 @@ public class LinkedList {
           head = tail;
         size++;
     }
-    /*
+
     public void printList(){ // A method to print the list and show it's blocks in order from head to tail.
-        System.out.println("Current head = "+(head==null?null:head.num));
-        System.out.println("Current tail = "+(tail==null?null:tail.num));
-        //System.out.println("Current size = "+size);
-        Node current = head;
-        System.out.print("List: ");
-        while (current != null){
-            System.out.print(current.num+" --> ");
-            current = current.next;
-        }
-        System.out.println("null");
-        System.out.println("==============");
-    }*/
+        System.out.println("country "+ head.name);
+        System.out.println("country code "+ head.CCode);
+        System.out.println(" year "+ head.year);
+        System.out.println(" value "+ head.value);
+    }
 }

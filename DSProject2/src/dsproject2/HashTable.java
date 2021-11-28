@@ -6,16 +6,20 @@ import java.util.Scanner;
 
 public class HashTable {
     int n;
-    LinkedList[] arr;
+   public static LinkedList[] arr;
     
-   public HashTable(){
-    for(int i=0;i<383;i++)
-    {
-        arr[i]=new LinkedList();
-    }
+   public HashTable(String path) throws FileNotFoundException {
+       LinkedList[] arr = new LinkedList[383];
+       readFile(path);
+   }
+
+   public static void put(Node n){
+       int x = (int) hash(n.name);
+       arr[x] = new LinkedList();
+       arr[x].insertFirst(n);
    }
    
-   public long hash(String s){
+   public static long hash(String s){
       int n = s.length();
    long sum = 0;
        for (int i = 0; i < n; i++) {       
@@ -24,17 +28,24 @@ public class HashTable {
        
    return sum % 383;
    }
-   
-    public String readFile(String filePath)throws FileNotFoundException{
-        File file = new File(filePath);        
-        Scanner scan = new Scanner(file);
-    String s="";
-    while(scan.hasNextLine()){
-        s = scan.nextLine();
-        break;
+
+    public static void readFile(String path) throws FileNotFoundException {
+        File file = new File(path);
+        Scanner inFile = new Scanner(file);
+
+        while (inFile.hasNextLine()) {
+            String line = inFile.nextLine();
+            String[] col = line.split(Character.toString(','));
+            Node temp= new Node(col[0],col[1],Integer.parseInt(col[2]),Double.parseDouble(col[2]));
+            put(temp);
+        }
+        inFile.close();
     }
-        scan.close();
-    return s;
-    
+
+    public void Print(){
+       //for (int i =0 ; i < 383 ; i++){
+           arr[0].printList();
+
+
     }
-}
+    }
