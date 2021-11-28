@@ -8,7 +8,7 @@ public class DSProject2 {
    
     public static void main(String[] args) throws FileNotFoundException {
 
-    HashTable h = new HashTable("C:\\Users\\user\\Desktop\\EXCEL FILES\\A.csv");
+    HashTable h = new HashTable("C:\\Users\\HP\\Downloads\\A.csv");
         h.Print();
 
 

@@ -26,22 +26,22 @@ public class LinkedList {
             tail = head; 
         size++;
     }
-    public void insertLast(String name, String CCode, int year, double value){ // A method to insert a block into to the end of a list.
-        Node tmp = new Node(name, CCode, year, value);
+    public void insertLast(Node n){ // A method to insert a block into to the end of a list.
+        
        // tmp.prev = tail;
-        tmp.next = null;
+        n.next = null;
         if(tail != null)
-            tail.next = tmp;
-        tail = tmp;
+            tail.next = n;
+        tail = n;
         if (size==0)
           head = tail;
         size++;
     }
 
     public void printList(){ // A method to print the list and show it's blocks in order from head to tail.
-        System.out.println("country "+ head.name);
-        System.out.println("country code "+ head.CCode);
-        System.out.println(" year "+ head.year);
-        System.out.println(" value "+ head.value);
+        System.out.println("country: "+ (head.name==null?null:head.name)); // +(head==null?null:head.item)
+        System.out.println("country code: "+(head.CCode==null?"No CCOde":head.CCode));
+        System.out.println(" year: "+(head.year==0?null:head.year));
+        System.out.println(" value: "+(head.value==0?null:head.value));
     }
 }

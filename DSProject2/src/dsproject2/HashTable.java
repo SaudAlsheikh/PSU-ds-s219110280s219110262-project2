@@ -9,14 +9,20 @@ public class HashTable {
    public static LinkedList[] arr;
     
    public HashTable(String path) throws FileNotFoundException {
-       LinkedList[] arr = new LinkedList[383];
+        arr = new LinkedList[383];
+       for (int i = 0; i < arr.length; i++) {
+           arr[i] = new LinkedList();
+       }
        readFile(path);
    }
 
    public static void put(Node n){
-       int x = (int) hash(n.name);
-       arr[x] = new LinkedList();
+       int x = (int) hash(n.CCode);
+           
+       //arr[x] = new LinkedList();
+      // System.out.println(arr[x]);
        arr[x].insertFirst(n);
+       
    }
    
    public static long hash(String s){
@@ -36,16 +42,19 @@ public class HashTable {
         while (inFile.hasNextLine()) {
             String line = inFile.nextLine();
             String[] col = line.split(Character.toString(','));
-            Node temp= new Node(col[0],col[1],Integer.parseInt(col[2]),Double.parseDouble(col[2]));
+            Node temp= new Node(col[0],col[1],Integer.parseInt(col[2]),Double.parseDouble(col[3]));
             put(temp);
         }
         inFile.close();
     }
 
     public void Print(){
-       //for (int i =0 ; i < 383 ; i++){
-           arr[0].printList();
-
-
+       for (int i =0 ; i < 383 ; i++){
+           if (arr[i] == null) {
+               continue;
+           }
+           arr[i].printList();
+        }
+       
     }
     }
