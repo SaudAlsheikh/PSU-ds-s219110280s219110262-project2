@@ -34,12 +34,47 @@ public class LinkedList {
             head = tail;
         size++;
     }
+    
+     public void deleteNodeNoDummy(Node n){
+
+        if (head == n){ 
+            head = head.next;
+            // if head is the only element
+            if (head == null)
+                tail = null;
+            return; // head is the node containing val, so terminate
+        }
+        
+        
+        Node prev = head;
+        Node cur = head.next;
+        
+        while(cur!=null){
+            if(cur == n){
+                prev.next = cur.next;
+                if (cur==tail)
+                    tail = prev;
+                return;
+            }
+            prev = prev.next;
+            cur = cur.next;
+        }
+        
+        System.out.println("No value found!");
+        
+    }
 
     public void printList(){ // A method to print the list and show it's blocks in order from head to tail.
+        int c = 0;
+        Node cur = head;
+        while(cur!=null){
         System.out.println();
-        System.out.print((head.name==null?"name is null":head.name)); // +(head==null?null:head.item)
-        System.out.print("||"+(head.CCode==null?"No CCOde":head.CCode));
-        System.out.print("||"+(head.year==0?null:head.year));
-        System.out.print("||"+(head.value==0?null:head.value));
+        System.out.print((cur.name==null?"name is null":cur.name)); // +(head==null?null:head.item)
+        System.out.print(" --> "+(cur.CCode==null?"No CCOde":cur.CCode));
+        System.out.print(" --> "+(cur.year==0?null:cur.year));
+        System.out.print(" --> "+(cur.value==0?null:cur.value));
+        cur = cur.next;c++;
+        }
+       
     }
 }

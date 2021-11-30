@@ -2,6 +2,7 @@ package dsproject2;
 
 public class Node {
     Node next = null;
+ //   Node prev = null;
     String name= null;
     String CCode= null;
     int year =0;
