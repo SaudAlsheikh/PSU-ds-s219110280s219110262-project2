@@ -44,21 +44,6 @@ public class HashTable<T> {
 
     }
 
-    /*
-    public long hash(T t){
-        switch(col){
-        
-            case 1:
-         
-        }
-                
-
-        }
-*/
-    public static int Ascii(char c) {
-        return c;
-    }
-
     public static int hash(String s) {
         int n = s.length();
         double sum = 0;
@@ -116,7 +101,7 @@ public class HashTable<T> {
                     while (cur != null) { // iterate through the list
                         myWriter.write(cur.name + ", " + cur.CCode + ", " + cur.year + ", " + cur.values[0] + ", " + cur.values[1] + ", " + cur.values[2] + ", " + cur.values[3] + ", "
                                 + cur.values[4] + ", " + cur.values[5] + "\n");
-                        System.out.println(cur.name + ", " + cur.CCode + ", " + cur.year + ", " + cur.values[0] + ", " + cur.values[1] + ", " + cur.values[2] + ", " + cur.values[3] + ", "
+                       System.out.println(cur.name + ", " + cur.CCode + ", " + cur.year + ", " + cur.values[0] + ", " + cur.values[1] + ", " + cur.values[2] + ", " + cur.values[3] + ", "
                                 + cur.values[4] + ", " + cur.values[5] + "\n");
                         cur = cur.next;
 

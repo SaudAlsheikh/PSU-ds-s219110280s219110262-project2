@@ -97,58 +97,17 @@ public class LPHashTable<T> {
     }
 
 
-    public void removeData(int year){
-    if(year < 0 )
-        throw new IllegalArgumentException("Year cannot be negative!");
-    int i =0;
-    Node empty= new Node("deleted","del",0,0.0);
-    while(i < size){
-        if(arr[i].year == year)
-            arr[i] = empty;
+    public void removeData(int year) {
+        if (year < 0)
+            throw new IllegalArgumentException("Year cannot be negative!");
+        int i = 0;
+        Node empty = new Node("deleted", "del", 0, 0.0);
+        while (i < size) {
+            if (arr[i].year == year)
+                arr[i] = empty;
             i++;
+        }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /*outer: for (int i = 0; i < size; i++) {
-        if(arr[i] != null){
-                Node empty= new Node("deleted","del",0,0.0);
-                 while(arr[i].year == year){
-                        arr[i] = empty;
-                     i++;
-                 }
-
-             // continue; // because every year has only one data
-
-               inner: while(cur!=null){ // size > 2
-                if(cur.year == year){
-                    cur = cur.next;
-                    prev.next = cur;
-
-                 //   prev = prev.next;
-                continue inner; // go to the next element in the array
-                }
-                prev = prev.next; // traverse
-                cur = cur.next;   // traverse
-                                      }
-                            }
-                            }  */           }
-
 
     public void removeData(String s){
         if(s.equals(null))

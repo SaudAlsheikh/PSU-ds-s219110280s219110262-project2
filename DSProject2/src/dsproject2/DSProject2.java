@@ -16,7 +16,7 @@ public class DSProject2<T> {
         int type = scan.nextInt();
         if (type == 2) {
             HashTable h = new HashTable("C:\\Users\\user\\Desktop\\EXCEL FILES\\D.csv", 2, 100000, 313);
-          //  h.Print();
+          //h.Print();
             // maybe remove
            /* h.removeData("Poland");
             h.removeData("Morocco");
