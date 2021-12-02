@@ -69,10 +69,22 @@ public class HashTable<T> {
         while (inFile.hasNextLine()) {
             String line = inFile.nextLine();
             String[] col = line.split(Character.toString(','));
-          //  if(col.length > )
-
-            Node temp= new Node(col[0],col[1],Integer.parseInt(col[2]),Double.parseDouble(col[3]));
+            Node temp;
+           // System.out.println(col.length);
+          if(col.length <= 4 ){
+              
+            temp= new Node(col[0],col[1],Integer.parseInt(col[2]),Double.parseDouble(col[3]));
             put(temp);
+          }
+          else{                    
+             temp= new Node(col[0],col[1],Integer.parseInt(col[2]),Double.parseDouble(col[3]),Double.parseDouble(col[4])
+                            ,Double.parseDouble(col[5])
+                     ,Double.parseDouble(col[6]),
+                     Double.parseDouble(col[7]),
+                     Double.parseDouble(col[8])); 
+             put(temp);
+          } 
+              
         }
         inFile.close();
     }
@@ -81,20 +93,26 @@ public class HashTable<T> {
         int b = 1;
         for (int i = 0; i < size; i++) {
            // myWriter.write(" "); // we have a problem here :)
-            if (arr[i]!= null) {
+            if (arr[i]!= null && arr[i].head.arr == null) {
            //  myWriter.write("end of iteration " + i + "\n");
                 
             Node cur = arr[i].head;
             while(cur!=null){
-            myWriter.write(cur.name + ", "+cur.CCode + ", "+cur.year + ", "+ cur.value+"\n");
-               System.out.println(b+" "+cur.name + ", "+cur.CCode + ", "+cur.year + ", "+ cur.value+"\n");
-               b++;
+            myWriter.write(cur.name + ", "+cur.CCode + ", "+cur.year + ", "+ cur.value+"\n");            
             cur = cur.next;
             }
+            } else if(arr[i]!= null && arr[i].head.arr != null){
+            Node cur = arr[i].head;
+            while(cur!=null){
+            myWriter.write(cur.name + ", "+cur.CCode + ", "+cur.year + ", "+ cur.arr[0] + ", " + cur.arr[1] + ", " + cur.arr[2] + ", " + cur.arr[3] + ", "
+            + cur.arr[4] + ", " + cur.arr[5]);           
+            cur = cur.next;
+            
             }
              
         }
        
+    }
     }
 
 

@@ -15,8 +15,8 @@ public class DSProject2<T> {
         System.out.println("please enter the method: (1 for LPM) (2 for Chaining)");
         int type = scan.nextInt();
         if (type == 2) {
-            HashTable h = new HashTable("C:\\Users\\user\\Desktop\\EXCEL FILES\\D.csv", 1, 100000, 313);
-            h.Print();
+            HashTable h = new HashTable("C:\\Users\\HP\\Downloads\\D.csv", 1, 8000, 313);
+          //  h.Print();
             // maybe remove
             h.removeData("Poland");
             h.removeData("Morocco");
@@ -24,7 +24,7 @@ public class DSProject2<T> {
             h.removeData("Senegal");
             h.removeData("Vietnam");
             h.removeData("Wallis and Futuna");
-            h.writeFile("C:\\Users\\user\\Desktop\\EXCEL FILES\\outPut.csv");
+            h.writeFile("C:\\Users\\HP\\Downloads\\OutputOfDDD.csv");
         } else {
             LPHashTable h = new LPHashTable("C:\\Users\\user\\Desktop\\EXCEL FILES\\B.csv", 3, 8961, 11);
             h.Print();
