@@ -43,21 +43,6 @@ public class HashTable<T> {
 
     }
 
-    /*
-    public long hash(T t){
-        switch(col){
-        
-            case 1:
-         
-        }
-                
-
-        }
-*/
-    public static int Ascii(char c) {
-        return c;
-    }
-
     public static int hash(String s) {
         int n = s.length();
         double sum = 0;
@@ -115,7 +100,7 @@ public class HashTable<T> {
                     while (cur != null) { // iterate through the list
                         myWriter.write(cur.name + ", " + cur.CCode + ", " + cur.year + ", " + cur.values[0] + ", " + cur.values[1] + ", " +
                                 cur.values[2] + ", " + cur.values[3] + ", " + cur.values[4] + ", " + cur.values[5] + "\n");
-                        
+
                         cur = cur.next;
 
                     }
@@ -163,7 +148,15 @@ public class HashTable<T> {
         for (int i = 0; i < size; i++) {
             if (arr[i] != null) { // it has a linked list in it
                 while (arr[i].head.year == year) {
-                    arr[i].head = arr[i].head.next;
+                    if(arr[i].head.next == arr[i].tail) {
+                        arr[i].head = arr[i].head.next;
+                        arr[i].head = arr[i].tail = new Node("deleted","del",0,0);
+                        continue outer;
+                    }
+                    else{
+                        arr[i].head = arr[i].head.next;
+
+                    }
                 }
                 Node prev = arr[i].head;
                 Node cur = arr[i].head.next;
