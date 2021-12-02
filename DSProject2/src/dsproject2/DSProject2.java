@@ -9,9 +9,16 @@ public class DSProject2 {
 
     public static void main(String[] args) throws FileNotFoundException,IOException  {
         Scanner scan = new Scanner(System.in);
-        HashTable h = new HashTable("C:\\Users\\HP\\Downloads\\B.csv", "C:\\Users\\HP\\Downloads\\ourFile.csv", 1, 8000, 11);
-      //  h.removeData(2012);
-        h.Print();
+        System.out.println("please enter the method: (1 for LPM) (2 for Chaining)");
+        int type = scan.nextInt();
+        if(type == 2){
+            HashTable h = new HashTable("C:\\Users\\user\\Desktop\\EXCEL FILES\\B.csv", "C:\\Users\\user\\Desktop\\EXCEL FILES\\outout2.txt", 1, 2000, 821,"Yemen");
+
+        }else {
+            LPHashTable h = new LPHashTable("C:\\Users\\user\\Desktop\\EXCEL FILES\\B.csv", "C:\\Users\\user\\Desktop\\EXCEL FILES\\outPut.csv", 3, 8961, 11, "Yemen");
+            h.Print();
+        }
+
         
     }
 }

@@ -11,12 +11,19 @@ public class HashTable<T> {
     public static LinkedList[] arr;
     public static int p = 0;
     public static int col = 0;
-    public HashTable(String inPath, String outPath, int c, int s, int prime) throws FileNotFoundException,IOException {
+    public HashTable(String inPath, String outPath, int c, int s, int prime, T RKey) throws FileNotFoundException,IOException {
         col = c;
         size = s;
         p = prime;
         arr = new LinkedList[size];
         readFile(inPath);
+        if(RKey instanceof String) {
+            removeData(String.valueOf(RKey));
+        }
+        else if(RKey instanceof Integer){
+                removeData((Integer.parseInt(String.valueOf(RKey))));
+        }
+
         writeFile(outPath);
     }
 
@@ -74,18 +81,17 @@ public class HashTable<T> {
     }
     public static void writeFile(String outPath) throws IOException {
         FileWriter myWriter = new FileWriter(outPath);
+        int b = 1;
         for (int i = 0; i < size; i++) {
-            myWriter.write(" "); // we have a problem here :)
+           // myWriter.write(" "); // we have a problem here :)
             if (arr[i]!= null) {
            //  myWriter.write("end of iteration " + i + "\n");
                 
             Node cur = arr[i].head;
             while(cur!=null){
-            myWriter.write(cur.name + ", ");
-            myWriter.write(cur.CCode + ", ");
-            myWriter.write(cur.year + ", ");
-            myWriter.write(String.valueOf(cur.value));
-            myWriter.write("\n");
+            myWriter.write(cur.name + ", "+cur.CCode + ", "+cur.year + ", "+ cur.value+"\n");
+               System.out.println(b+" "+cur.name + ", "+cur.CCode + ", "+cur.year + ", "+ cur.value+"\n");
+               b++;
             cur = cur.next;
             }
             }
@@ -94,60 +100,60 @@ public class HashTable<T> {
        
     }
 
-    
-    public void removeData(int year){
-    if(year < 0 )
-        throw new IllegalArgumentException("Year cannot be negative!");
-    
-    outer: for (int i = 0; i < size; i++) {
-            if(arr[i]!= null){ // it has a linked list in it
-                 while(arr[i].head.year == year){ 
-                        arr[i].head = arr[i].head.next;
-                 }
-                Node prev = arr[i].head;
-                Node cur = arr[i].head.next;   
-             // continue; // because every year has only one data
-                  
-               inner: while(cur!=null){ // size > 2       
-                if(cur.year == year){
-                    cur = cur.next;
-                    prev.next = cur;
-                    
-                 //   prev = prev.next;
-                continue inner; // go to the next element in the array
-                }             
-                prev = prev.next; // traverse
-                cur = cur.next;   // traverse       
-                                      }   
-                            }
-                            }             }
-        
+
     public void removeData(String s){
-   // if(year < 0 )
-      //  throw new IllegalArgumentException("Year cannot be negative!");
-    
-    outer: for (int i = 0; i < size; i++) {
+        // if(year < 0 )
+        //  throw new IllegalArgumentException("Year cannot be negative!");
+
+        outer: for (int i = 0; i < size; i++) {
             if(arr[i]!= null){ // it has a linked list in it
-                 while(arr[i].head.CCode.equals(s) || arr[i].head.name.equals(s)){ 
-                        arr[i].head = arr[i].head.next;
-                 }
+                while(arr[i].head.CCode.equals(s) || arr[i].head.name.equals(s)){
+                    arr[i].head = arr[i].head.next;
+                }
                 Node prev = arr[i].head;
-                Node cur = arr[i].head.next;   
-             // continue; // because every year has only one data
-                  
-               inner: while(cur!=null){ // size > 2       
-                if(cur.CCode.equals(s) || cur.name.equals(s)){
-                    cur = cur.next;
-                    prev.next = cur;
-                    
-                 //   prev = prev.next;
-                continue inner; // go to the next element in the array
-                }             
-                prev = prev.next; // traverse
-                cur = cur.next;   // traverse       
-                                      }   
-                            }
-                            }             }
+                Node cur = arr[i].head.next;
+                // continue; // because every year has only one data
+
+                inner: while(cur!=null){ // size > 2
+                    if(cur.CCode.equals(s) || cur.name.equals(s)){
+                        cur = cur.next;
+                        prev.next = cur;
+
+                        //   prev = prev.next;
+                        continue inner; // go to the next element in the array
+                    }
+                    prev = prev.next; // traverse
+                    cur = cur.next;   // traverse
+                }
+            }
+        }             }
+
+    public void removeData(int year){
+        if(year < 0 )
+            throw new IllegalArgumentException("Year cannot be negative!");
+
+        outer: for (int i = 0; i < size; i++) {
+            if(arr[i]!= null){ // it has a linked list in it
+                while(arr[i].head.year == year){
+                    arr[i].head = arr[i].head.next;
+                }
+                Node prev = arr[i].head;
+                Node cur = arr[i].head.next;
+                // continue; // because every year has only one data
+
+                inner: while(cur!=null){ // size > 2
+                    if(cur.year == year){
+                        cur = cur.next;
+                        prev.next = cur;
+
+                        //   prev = prev.next;
+                        continue inner; // go to the next element in the array
+                    }
+                    prev = prev.next; // traverse
+                    cur = cur.next;   // traverse
+                }
+            }
+        }             }
 
     public void Print(){
         for (int i =0 ; i < size ; i++){
