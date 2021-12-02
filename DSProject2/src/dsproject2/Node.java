@@ -5,7 +5,7 @@ public class Node {
     String name= null;
     String CCode= null;
     int year =0;
-    double[]arr = new double[6];
+    double[]values = new double[6];
     double value=0.0;
    
     public Node(){}
@@ -14,17 +14,18 @@ public class Node {
         this.CCode = CCode;
         this.year = year;
         this.value = value;
+        values[0]= -1;
     }
     public Node(String name, String CCode, int year, double value1, double value2, double value3, double value4, double value5, double value6) {
         this.name = name;
         this.CCode = CCode;
         this.year = year;
-        arr[0] = value1;
-        arr[1] = value2;
-        arr[2] = value3;
-        arr[3] = value4;
-        arr[4] = value5;
-        arr[5] = value6;
+        values[0] = value1;
+        values[1] = value2;
+        values[2] = value3;
+        values[3] = value4;
+        values[4] = value5;
+        values[5] = value6;
     }
   @Override
  public String toString(){

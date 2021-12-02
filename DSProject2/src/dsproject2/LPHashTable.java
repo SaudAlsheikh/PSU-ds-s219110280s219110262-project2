@@ -5,11 +5,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class LPHashTable<T> { public static int size = 0;
+public class LPHashTable<T> {
+    public static int size = 0;
     public static Node[] arr;
     public static int p = 0;
     public static int col = 0;
-    public LPHashTable(String inPath,int c, int s, int prime) throws FileNotFoundException,IOException {
+    public static int capacity = 0;
+    public LPHashTable(String inPath,int c, int s, int prime) throws Exception {
+
         col = c;
         size = s;
         p = prime;
@@ -18,7 +21,9 @@ public class LPHashTable<T> { public static int size = 0;
         //  writeFile(outPath);
     }
 
-    public static void put(Node n){
+    public static void put(Node n) throws Exception {
+        if(capacity == size)
+            throw new Exception("hashmap is full");
         int x = 0;
         switch (col){
 
@@ -42,19 +47,9 @@ public class LPHashTable<T> { public static int size = 0;
             else
                 i++;
         }
-
+    capacity++;
     }
-    /*
-    public long hash(T t){
-        switch(col){
 
-            case 1:
-
-        }
-
-
-        }
-*/
     public static long hash(String s){
         int n = s.length();
         long sum = 0;
@@ -68,7 +63,7 @@ public class LPHashTable<T> { public static int size = 0;
         return d % p; //
     }
 
-    public static void readFile(String path) throws FileNotFoundException {
+    public static void readFile(String path) throws Exception {
 
         File file = new File(path);
         Scanner inFile = new Scanner(file);

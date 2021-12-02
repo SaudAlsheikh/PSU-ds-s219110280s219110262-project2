@@ -11,33 +11,39 @@ public class HashTable<T> {
     public static LinkedList[] arr;
     public static int p = 0;
     public static int col = 0;
-    public HashTable(String inPath, int c, int s, int prime) throws FileNotFoundException,IOException {
-        col = c;
+
+    public HashTable(String inPath, int c, int s, int prime) throws FileNotFoundException, IOException {
+        this.col = c;
         size = s;
         p = prime;
         arr = new LinkedList[size];
         readFile(inPath);
-       
 
-       
+
     }
 
-    public static void put(Node n){
+    public static void put(Node n) {
         int x = 0;
-        switch (col){
-        
+        switch (col) {
             case 1:
-               x = (int) hash(n.name); 
+                x = (int) hash(n.name);
+                System.out.println(x);
+                break;
             case 2:
-               x = (int) hash(n.CCode);
+                x = (int) hash(n.CCode);
+                break;
             case 3:
-               x = (int) hash(n.year); 
-        }       
-        if(arr[x] == null)
+                x = (int) hash(n.year);
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + col);
+        }
+        if (arr[x] == null)
             arr[x] = new LinkedList();
         arr[x].insertLast(n);
 
     }
+
     /*
     public long hash(T t){
         switch(col){
@@ -49,16 +55,21 @@ public class HashTable<T> {
 
         }
 */
-    public static long hash(String s){
-        int n = s.length();
-        long sum = 0;
-        for (int i = 0; i < n; i++) {
-            sum = sum + (s.charAt(i) * (int)Math.pow(31, n-1-i));
-        }
-
-        return sum % p; // better to make p a variable
+    public static int Ascii(char c) {
+        return c;
     }
-    public static long hash(int d){   
+
+    public static int hash(String s) {
+        int n = s.length();
+        double sum = 0;
+        for (int i = 0; i < n; i++) {
+            sum = sum + s.charAt(i) * Math.pow(31, s.length() - 1 - i);
+        }
+        sum = sum % p;
+        return (int) sum; // better to make p a variable
+    }
+
+    public static long hash(int d) {
         return d % p; // 
     }
 
@@ -70,67 +81,68 @@ public class HashTable<T> {
             String line = inFile.nextLine();
             String[] col = line.split(Character.toString(','));
             Node temp;
-           // System.out.println(col.length);
-          if(col.length <= 4 ){
-              
-            temp= new Node(col[0],col[1],Integer.parseInt(col[2]),Double.parseDouble(col[3]));
-            put(temp);
-          }
-          else{                    
-             temp= new Node(col[0],col[1],Integer.parseInt(col[2]),Double.parseDouble(col[3]),Double.parseDouble(col[4])
-                            ,Double.parseDouble(col[5])
-                     ,Double.parseDouble(col[6]),
-                     Double.parseDouble(col[7]),
-                     Double.parseDouble(col[8])); 
-             put(temp);
-          } 
-              
+            // System.out.println(col.length);
+            if (col.length <= 4) {
+
+                temp = new Node(col[0], col[1], Integer.parseInt(col[2]), Double.parseDouble(col[3]));
+                put(temp);
+            } else {
+                temp = new Node(col[0], col[1], Integer.parseInt(col[2]), Double.parseDouble(col[3]), Double.parseDouble(col[4])
+                        , Double.parseDouble(col[5])
+                        , Double.parseDouble(col[6]),
+                        Double.parseDouble(col[7]),
+                        Double.parseDouble(col[8]));
+                put(temp);
+            }
+
         }
         inFile.close();
     }
+
     public static void writeFile(String outPath) throws IOException {
         FileWriter myWriter = new FileWriter(outPath);
         int b = 1;
-        for (int i = 0; i < size; i++) {
-           // myWriter.write(" "); // we have a problem here :)
-            if (arr[i]!= null && arr[i].head.arr == null) {
-           //  myWriter.write("end of iteration " + i + "\n");
-                
-            Node cur = arr[i].head;
-            while(cur!=null){
-            myWriter.write(cur.name + ", "+cur.CCode + ", "+cur.year + ", "+ cur.value+"\n");            
-            cur = cur.next;
-            }
-            } else if(arr[i]!= null && arr[i].head.arr != null){
-            Node cur = arr[i].head;
-            while(cur!=null){
-            myWriter.write(cur.name + ", "+cur.CCode + ", "+cur.year + ", "+ cur.arr[0] + ", " + cur.arr[1] + ", " + cur.arr[2] + ", " + cur.arr[3] + ", "
-            + cur.arr[4] + ", " + cur.arr[5]);           
-            cur = cur.next;
-            
-            }
-             
+        for (int i = 0; i < size; i++) { // iterate through the array
+            // myWriter.write(" "); // we have a problem here :)
+            if (arr[i] != null)
+                if (arr[i].head.values[0] == -1) {
+                    Node cur = arr[i].head;
+                    while (cur != null) { // iterate through the list
+                        myWriter.write(cur.name + ", " + cur.CCode + ", " + cur.year + ", " + cur.value + "\n");
+                        cur = cur.next;
+                    }
+                } else if (arr[i] != null && arr[i].head.values != null) {
+                    Node cur = arr[i].head;
+                    while (cur != null) { // iterate through the list
+                        myWriter.write(cur.name + ", " + cur.CCode + ", " + cur.year + ", " + cur.values[0] + ", " + cur.values[1] + ", " + cur.values[2] + ", " + cur.values[3] + ", "
+                                + cur.values[4] + ", " + cur.values[5] + "\n");
+                        System.out.println(cur.name + ", " + cur.CCode + ", " + cur.year + ", " + cur.values[0] + ", " + cur.values[1] + ", " + cur.values[2] + ", " + cur.values[3] + ", "
+                                + cur.values[4] + ", " + cur.values[5] + "\n");
+                        cur = cur.next;
+
+                    }
+                }
         }
-       
-    }
     }
 
 
-    public void removeData(String s){
+    public void removeData(String s) {
         // if(year < 0 )
         //  throw new IllegalArgumentException("Year cannot be negative!");
 
-        outer: for (int i = 0; i < size; i++) {
-            if(arr[i]!= null){ // it has a linked list in it
-                while(arr[i].head.CCode.equals(s) || arr[i].head.name.equals(s)){
+        outer:
+        for (int i = 0; i < size; i++) {
+            if (arr[i] != null) { // it has a linked list in it
+                while (arr[i].head.CCode.equals(s) || arr[i].head.name.equals(s)) {
                     arr[i].head = arr[i].head.next;
                 }
                 Node prev = arr[i].head;
                 Node cur = arr[i].head.next;
                 // continue; // because every year has only one data
 
-                inner: while(cur!=null){ // size > 2
-                    if(cur.CCode.equals(s) || cur.name.equals(s)){
+                inner:
+                while (cur != null) { // size > 2
+                    if (cur.CCode.equals(s) || cur.name.equals(s)) {
                         cur = cur.next;
                         prev.next = cur;
 
@@ -141,23 +153,26 @@ public class HashTable<T> {
                     cur = cur.next;   // traverse
                 }
             }
-        }             }
+        }
+    }
 
-    public void removeData(int year){
-        if(year < 0 )
+    public void removeData(int year) {
+        if (year < 0)
             throw new IllegalArgumentException("Year cannot be negative!");
 
-        outer: for (int i = 0; i < size; i++) {
-            if(arr[i]!= null){ // it has a linked list in it
-                while(arr[i].head.year == year){
+        outer:
+        for (int i = 0; i < size; i++) {
+            if (arr[i] != null) { // it has a linked list in it
+                while (arr[i].head.year == year) {
                     arr[i].head = arr[i].head.next;
                 }
                 Node prev = arr[i].head;
                 Node cur = arr[i].head.next;
                 // continue; // because every year has only one data
 
-                inner: while(cur!=null){ // size > 2
-                    if(cur.year == year){
+                inner:
+                while (cur != null) { // size > 2
+                    if (cur.year == year) {
                         cur = cur.next;
                         prev.next = cur;
 
@@ -168,10 +183,11 @@ public class HashTable<T> {
                     cur = cur.next;   // traverse
                 }
             }
-        }             }
+        }
+    }
 
-    public void Print(){
-        for (int i =0 ; i < size ; i++){
+    public void Print() {
+        for (int i = 0; i < size; i++) {
             if (arr[i] != null) {
                 arr[i].printList();
             }
