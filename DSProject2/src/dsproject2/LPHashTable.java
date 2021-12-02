@@ -1,4 +1,7 @@
 package dsproject2;
+import static dsproject2.HashTable.col;
+import static dsproject2.HashTable.p;
+import static dsproject2.HashTable.put;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -18,7 +21,6 @@ public class LPHashTable<T> {
         p = prime;
         arr = new Node[size];
         readFile(inPath);
-        //  writeFile(outPath);
     }
 
     public static void put(Node n) throws Exception {
@@ -29,10 +31,15 @@ public class LPHashTable<T> {
 
             case 1:
                 x = (int) hash(n.name);
+                break;
             case 2:
                 x = (int) hash(n.CCode);
+                break;
             case 3:
                 x = (int) hash(n.year);
+                break;
+                default:
+                throw new IllegalStateException("Unexpected value: " + col);
         }
         if(arr[x] == null){
             arr[x] = n;
@@ -50,14 +57,14 @@ public class LPHashTable<T> {
     capacity++;
     }
 
-    public static long hash(String s){
+    public static int hash(String s) {
         int n = s.length();
-        long sum = 0;
+        double sum = 0;
         for (int i = 0; i < n; i++) {
-            sum = sum + (s.charAt(i) * (int)Math.pow(31, n-1-i));
+            sum = sum + s.charAt(i) * Math.pow(31, s.length() - 1 - i);
         }
-
-        return sum % p; // better to make p a variable
+        sum = sum % p;
+        return (int) sum; // better to make p a variable
     }
     public static long hash(int d){
         return d % p; //
@@ -65,31 +72,43 @@ public class LPHashTable<T> {
 
     public static void readFile(String path) throws Exception {
 
-        File file = new File(path);
+         File file = new File(path);
         Scanner inFile = new Scanner(file);
 
         while (inFile.hasNextLine()) {
             String line = inFile.nextLine();
             String[] col = line.split(Character.toString(','));
-            Node temp= new Node(col[0],col[1],Integer.parseInt(col[2]),Double.parseDouble(col[3]));
-            put(temp);
+            Node temp;
+            // System.out.println(col.length);
+            if (col.length <= 4) {
+
+                temp = new Node(col[0], col[1], Integer.parseInt(col[2]), Double.parseDouble(col[3]));
+                put(temp);
+            } else {
+                temp = new Node(col[0], col[1], Integer.parseInt(col[2]), Double.parseDouble(col[3]), Double.parseDouble(col[4])
+                        , Double.parseDouble(col[5])
+                        , Double.parseDouble(col[6]),
+                        Double.parseDouble(col[7]),
+                        Double.parseDouble(col[8]));
+                put(temp);
+            }
+
         }
         inFile.close();
     }
     public static void writeFile(String outPath) throws IOException {
         FileWriter myWriter = new FileWriter(outPath);
         for (int i = 0; i < size; i++) {
-            if (arr[i]!= null) {
-
-                Node cur = arr[i];
-                while(cur!=null){
-                    myWriter.write(cur.name + ", ");
-                    myWriter.write(cur.CCode + ", ");
-                    myWriter.write(cur.year + ", ");
-                    myWriter.write(String.valueOf(cur.value));
-                    myWriter.write("\n");
-                    cur = cur.next;
+            if (arr[i]!= null) { 
+                if (arr[i].values[0] == -1) {    
+            myWriter.write(arr[i].name + ", " + arr[i].CCode + ", " + arr[i].year + ", " + arr[i].value + "\n");                                  
+            }
+                if (arr[i]!= null && arr[i].values[0] != -1) {
+         myWriter.write(arr[i].name + ", " + arr[i].CCode + ", " + arr[i].year + ", " + arr[i].values[0] + ", " + arr[i].values[1] + ", " +
+               arr[i].values[2] + ", " + arr[i].values[3] + ", " + arr[i].values[4] + ", " + arr[i].values[5] + "\n");
                 }
+   
+                
             }
 
         }

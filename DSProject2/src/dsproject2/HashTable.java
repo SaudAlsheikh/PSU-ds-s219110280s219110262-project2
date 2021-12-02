@@ -26,8 +26,7 @@ public class HashTable<T> {
         int x = 0;
         switch (col) {
             case 1:
-                x = (int) hash(n.name);
-                System.out.println(x);
+                x = (int) hash(n.name);             
                 break;
             case 2:
                 x = (int) hash(n.CCode);
@@ -104,24 +103,24 @@ public class HashTable<T> {
         int b = 1;
         for (int i = 0; i < size; i++) { // iterate through the array
             // myWriter.write(" "); // we have a problem here :)
-            if (arr[i] != null)
+            if (arr[i] != null){
                 if (arr[i].head.values[0] == -1) {
                     Node cur = arr[i].head;
                     while (cur != null) { // iterate through the list
                         myWriter.write(cur.name + ", " + cur.CCode + ", " + cur.year + ", " + cur.value + "\n");
                         cur = cur.next;
                     }
-                } else if (arr[i] != null && arr[i].head.values != null) {
+                } else if (arr[i] != null && arr[i].head.values[0]!= -1) {
                     Node cur = arr[i].head;
                     while (cur != null) { // iterate through the list
-                        myWriter.write(cur.name + ", " + cur.CCode + ", " + cur.year + ", " + cur.values[0] + ", " + cur.values[1] + ", " + cur.values[2] + ", " + cur.values[3] + ", "
-                                + cur.values[4] + ", " + cur.values[5] + "\n");
-                        System.out.println(cur.name + ", " + cur.CCode + ", " + cur.year + ", " + cur.values[0] + ", " + cur.values[1] + ", " + cur.values[2] + ", " + cur.values[3] + ", "
-                                + cur.values[4] + ", " + cur.values[5] + "\n");
+                        myWriter.write(cur.name + ", " + cur.CCode + ", " + cur.year + ", " + cur.values[0] + ", " + cur.values[1] + ", " +
+                                cur.values[2] + ", " + cur.values[3] + ", " + cur.values[4] + ", " + cur.values[5] + "\n");
+                        
                         cur = cur.next;
 
                     }
                 }
+        }
         }
     }
 
