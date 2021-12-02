@@ -7,6 +7,7 @@ public class Node {
     String CCode= null;
     int year =0;
     double value=0.0;
+    public Node(){}
     public Node(String name, String CCode, int year, double value) {
         this.name = name;
         this.CCode = CCode;

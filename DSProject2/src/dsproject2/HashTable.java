@@ -11,20 +11,15 @@ public class HashTable<T> {
     public static LinkedList[] arr;
     public static int p = 0;
     public static int col = 0;
-    public HashTable(String inPath, String outPath, int c, int s, int prime, T RKey) throws FileNotFoundException,IOException {
+    public HashTable(String inPath, int c, int s, int prime) throws FileNotFoundException,IOException {
         col = c;
         size = s;
         p = prime;
         arr = new LinkedList[size];
         readFile(inPath);
-        if(RKey instanceof String) {
-            removeData(String.valueOf(RKey));
-        }
-        else if(RKey instanceof Integer){
-                removeData((Integer.parseInt(String.valueOf(RKey))));
-        }
+       
 
-        writeFile(outPath);
+       
     }
 
     public static void put(Node n){
