@@ -9,19 +9,12 @@ public class LPHashTable<T> { public static int size = 0;
     public static Node[] arr;
     public static int p = 0;
     public static int col = 0;
-    public LPHashTable(String inPath, String outPath, int c, int s, int prime, T RKey) throws FileNotFoundException,IOException {
+    public LPHashTable(String inPath,int c, int s, int prime) throws FileNotFoundException,IOException {
         col = c;
         size = s;
         p = prime;
         arr = new Node[size];
         readFile(inPath);
-        if(RKey instanceof String) {
-            removeData(String.valueOf(RKey));
-        }
-        else if(RKey instanceof Integer){
-            removeData((Integer.parseInt(String.valueOf(RKey))));
-        }
-
         //  writeFile(outPath);
     }
 

@@ -69,6 +69,8 @@ public class HashTable<T> {
         while (inFile.hasNextLine()) {
             String line = inFile.nextLine();
             String[] col = line.split(Character.toString(','));
+          //  if(col.length > )
+
             Node temp= new Node(col[0],col[1],Integer.parseInt(col[2]),Double.parseDouble(col[3]));
             put(temp);
         }
