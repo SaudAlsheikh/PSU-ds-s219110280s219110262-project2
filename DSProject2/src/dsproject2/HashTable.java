@@ -12,12 +12,15 @@ public class HashTable<T> {
     public static int p = 0;
     public static int col = 0;
 
-    public HashTable(String inPath, int c, int s, int prime) throws FileNotFoundException, IOException {
+    public HashTable(String inPath, int c, int s, int prime) throws IOException {
         this.col = c;
         size = s;
         p = prime;
         arr = new LinkedList[size];
+        long start = System.currentTimeMillis();
         readFile(inPath);
+        long end = System.currentTimeMillis();
+        System.out.println("total time to read data: " + ((end - start) * Math.pow(10, -3)) + " s");
 
 
     }
@@ -26,7 +29,7 @@ public class HashTable<T> {
         int x = 0;
         switch (col) {
             case 1:
-                x = (int) hash(n.name);             
+                x = (int) hash(n.name);
                 break;
             case 2:
                 x = (int) hash(n.CCode);
@@ -60,14 +63,11 @@ public class HashTable<T> {
     public static void readFile(String path) throws FileNotFoundException {
         File file = new File(path);
         Scanner inFile = new Scanner(file);
-
         while (inFile.hasNextLine()) {
             String line = inFile.nextLine();
             String[] col = line.split(Character.toString(','));
             Node temp;
-            // System.out.println(col.length);
             if (col.length <= 4) {
-
                 temp = new Node(col[0], col[1], Integer.parseInt(col[2]), Double.parseDouble(col[3]));
                 put(temp);
             } else {
@@ -78,9 +78,9 @@ public class HashTable<T> {
                         Double.parseDouble(col[8]));
                 put(temp);
             }
-
         }
         inFile.close();
+
     }
 
     public static void writeFile(String outPath) throws IOException {
@@ -88,49 +88,46 @@ public class HashTable<T> {
         int b = 1;
         for (int i = 0; i < size; i++) { // iterate through the array
             // myWriter.write(" "); // we have a problem here :)
-            if (arr[i] != null){
+            if (arr[i] != null && arr[i].head != null) {
                 if (arr[i].head.values[0] == -1) {
                     Node cur = arr[i].head;
                     while (cur != null) { // iterate through the list
                         myWriter.write(cur.name + ", " + cur.CCode + ", " + cur.year + ", " + cur.value + "\n");
                         cur = cur.next;
                     }
-                } else if (arr[i] != null && arr[i].head.values[0]!= -1) {
+                } else if (arr[i] != null && arr[i].head.values[0] != -1) {
                     Node cur = arr[i].head;
                     while (cur != null) { // iterate through the list
                         myWriter.write(cur.name + ", " + cur.CCode + ", " + cur.year + ", " + cur.values[0] + ", " + cur.values[1] + ", " +
                                 cur.values[2] + ", " + cur.values[3] + ", " + cur.values[4] + ", " + cur.values[5] + "\n");
-
                         cur = cur.next;
-
                     }
                 }
-        }
+            }
         }
     }
 
 
     public void removeData(String s) {
-        // if(year < 0 )
-        //  throw new IllegalArgumentException("Year cannot be negative!");
-
         outer:
         for (int i = 0; i < size; i++) {
             if (arr[i] != null) { // it has a linked list in it
-                while (arr[i].head.CCode.equals(s) || arr[i].head.name.equals(s)) {
-                    arr[i].head = arr[i].head.next;
-                }
+                if (arr[i].head != null)
+                    while (arr[i].head.CCode.equals(s) || arr[i].head.name.equals(s)) {
+                        arr[i].deleteHead();
+                        if (arr[i].lSize == 0)
+                            continue outer;
+                    }
+                if (arr[i].lSize == 0)
+                    continue outer;
                 Node prev = arr[i].head;
                 Node cur = arr[i].head.next;
                 // continue; // because every year has only one data
-
                 inner:
                 while (cur != null) { // size > 2
                     if (cur.CCode.equals(s) || cur.name.equals(s)) {
                         cur = cur.next;
                         prev.next = cur;
-
-                        //   prev = prev.next;
                         continue inner; // go to the next element in the array
                     }
                     prev = prev.next; // traverse
@@ -141,19 +138,15 @@ public class HashTable<T> {
     }
 
     public void removeData(int year) {
-        if (year < 0)
-            throw new IllegalArgumentException("Year cannot be negative!");
-
         outer:
         for (int i = 0; i < size; i++) {
             if (arr[i] != null) { // it has a linked list in it
                 while (arr[i].head.year == year) {
-                    if(arr[i].head.next == arr[i].tail) {
+                    if (arr[i].head.next == arr[i].tail) {
                         arr[i].head = arr[i].head.next;
-                        arr[i].head = arr[i].tail = new Node("deleted","del",0,0);
+                        arr[i].head = arr[i].tail = new Node("deleted", "del", 0, 0);
                         continue outer;
-                    }
-                    else{
+                    } else {
                         arr[i].head = arr[i].head.next;
 
                     }
@@ -167,8 +160,6 @@ public class HashTable<T> {
                     if (cur.year == year) {
                         cur = cur.next;
                         prev.next = cur;
-
-                        //   prev = prev.next;
                         continue inner; // go to the next element in the array
                     }
                     prev = prev.next; // traverse
@@ -188,4 +179,3 @@ public class HashTable<T> {
 
     }
 }
-

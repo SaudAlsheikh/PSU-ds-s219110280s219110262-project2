@@ -1,11 +1,7 @@
 package dsproject2;
 
-import static dsproject2.HashTable.col;
-import static dsproject2.HashTable.p;
-import static dsproject2.HashTable.put;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
@@ -23,7 +19,10 @@ public class LPHashTable<T> {
         size = s;
         p = prime;
         arr = new Node[size];
+        long start = System.currentTimeMillis();
         readFile(inPath);
+        long end = System.currentTimeMillis();
+        System.out.println("total time to read data: "+((end-start)* Math.pow(10,-3))+" s");
     }
 
     public static void put(Node n) throws Exception {
@@ -71,7 +70,7 @@ public class LPHashTable<T> {
     }
 
     public static long hash(int d) {
-        return d % p; //
+        return d % p;
     }
 
     public static void readFile(String path) throws Exception {
@@ -83,9 +82,7 @@ public class LPHashTable<T> {
             String line = inFile.nextLine();
             String[] col = line.split(Character.toString(','));
             Node temp;
-            // System.out.println(col.length);
             if (col.length <= 4) {
-
                 temp = new Node(col[0], col[1], Integer.parseInt(col[2]), Double.parseDouble(col[3]));
                 put(temp);
             } else {
@@ -94,10 +91,8 @@ public class LPHashTable<T> {
                         , Double.parseDouble(col[6]),
                         Double.parseDouble(col[7]),
                         Double.parseDouble(col[8]));
-                //System.out.println(temp);
                 put(temp);
             }
-
         }
         inFile.close();
     }
@@ -113,13 +108,7 @@ public class LPHashTable<T> {
                 else {
                     myWriter.write(arr[i].name + ", " + arr[i].CCode + ", " + arr[i].year + ", " + arr[i].values[0] + ", " + arr[i].values[1] + ", " +
                             arr[i].values[2] + ", " + arr[i].values[3] + ", " + arr[i].values[4] + ", " + arr[i].values[5] + "\n");
-                 //   System.out.println(arr[i].name + ", " + arr[i].CCode + ", " + arr[i].year + ", " + arr[i].values[0] + ", " + arr[i].values[1] + ", " +
-                        //    arr[i].values[2] + ", " + arr[i].values[3] + ", " + arr[i].values[4] + ", " + arr[i].values[5] + "\n");
                 }
-
-
-
-
         }
 
     }
