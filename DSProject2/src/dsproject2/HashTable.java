@@ -26,6 +26,7 @@ public class HashTable<T> {
         System.out.println("total time to read data: " + ((end - start) * Math.pow(10, -3)) + " s");
         isInteger(keys);
         writeFile(outPath);
+        System.out.println(capacity);
 
     }
 

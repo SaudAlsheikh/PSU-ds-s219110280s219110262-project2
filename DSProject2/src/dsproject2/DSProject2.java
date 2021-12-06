@@ -8,7 +8,7 @@ import java.util.*;
 
 public class DSProject2<T> {
 
-    // chaange the input so that the user put the input file and output
+    // change the input so that the user put the input file and output
     public static void main(String[] args) throws Exception {
         Scanner scan = new Scanner(System.in);
         int type = Integer.parseInt(args[4]);
