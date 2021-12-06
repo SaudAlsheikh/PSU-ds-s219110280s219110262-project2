@@ -26,8 +26,6 @@ public class HashTable<T> {
         System.out.println("total time to read data: " + ((end - start) * Math.pow(10, -3)) + " s");
         isInteger(keys);
         writeFile(outPath);
-        System.out.println("load factor = " + (double)capacity/size);
-
 
     }
 
@@ -92,6 +90,8 @@ public class HashTable<T> {
     }
 
     public static void writeFile(String outPath) throws IOException {
+        System.out.println("Writing data to output file");
+        double start = System.currentTimeMillis();
         FileWriter myWriter = new FileWriter(outPath);
         for (int i = 0; i < size; i++) { // iterate through the array
             if (arr[i] != null && arr[i].head != null) {
@@ -111,13 +111,18 @@ public class HashTable<T> {
                 }
             }
         }
+        double end = System.currentTimeMillis();
+        System.out.println("total time to write data: " + ((end - start) * Math.pow(10, -3)) + " seconds.");
     }
 
 
     public static void removeString(String[] s) {
+        System.out.print("Searching and removing ");
+        double start = System.currentTimeMillis();
         for(int a=0; a< s.length;a++){
             if(s[a]== null)
                 continue;
+            System.out.print(s[a]+" ");
         outer: // to iterate through the array
         for (int i = 0; i < size; i++) {
             if (arr[i] != null) { // it has a linked list in it
@@ -144,12 +149,18 @@ public class HashTable<T> {
                 }
             }
         }
+        double end = System.currentTimeMillis();
+        System.out.println("");
+        System.out.println("total time to remove data: " + ((end - start) * Math.pow(10, -3)) + " seconds");
     }
 
     public static void removeInt(int[] y) {
+        System.out.print("Searching and removing ");
+        double start = System.currentTimeMillis();
         for (int a = 0; a < y.length; a++) {
             if(y[a] == 0)
                 continue;
+            System.out.print(y[a]+" ");
                 outer:
                 // to iterate through the array
                 for (int i = 0; i < size; i++) {
@@ -182,6 +193,9 @@ public class HashTable<T> {
                     }
                 }
             }
+        double end = System.currentTimeMillis();
+        System.out.println("");
+        System.out.println("total time to remove data: " + ((end - start) * Math.pow(10, -3)) + " seconds");
         }
 
 

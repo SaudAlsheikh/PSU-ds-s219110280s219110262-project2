@@ -26,7 +26,7 @@ public class LPHashTable<T> {
         System.out.println("total time to read data: " + ((end - start) * Math.pow(10, -3)) + " s");
         isInteger(keys);
         writeFile(outPath);
-        System.out.println("load factor = " + (double)capacity/size);
+
 
     }
 
@@ -101,6 +101,8 @@ public class LPHashTable<T> {
     }
 
     public static void writeFile(String outPath) throws IOException {
+        System.out.println("Writing data to output file");
+        double start = System.currentTimeMillis();
         FileWriter myWriter = new FileWriter(outPath);
         for (int i = 0; i < size; i++) {
             if (arr[i] != null)
@@ -112,17 +114,21 @@ public class LPHashTable<T> {
                             arr[i].values[2] + ", " + arr[i].values[3] + ", " + arr[i].values[4] + ", " + arr[i].values[5] + "\n");
                 }
         }
+        double end = System.currentTimeMillis();
+        System.out.println("total time to write data: " + ((end - start) * Math.pow(10, -3)) + " seconds.");
 
     }
 
 
     public static void removeInt(int[] y) {
+        System.out.print("Searching and removing ");
+        double start = System.currentTimeMillis();
         for (int a = 0; a < y.length; a++) {
             if (y[a] < 0)
                 throw new IllegalArgumentException("Year cannot be negative!");
-            if (y[a] == 0) {
+            if (y[a] == 0)
                 continue;
-            }
+            System.out.print(y[a]+" ");
                 int i = 0;
                 Node empty = new Node("deleted", "del", 0, 0.0);
                 while (i < size) {
@@ -132,15 +138,20 @@ public class LPHashTable<T> {
                     i++;
                 }
             }
+        double end = System.currentTimeMillis();
+        System.out.println("");
+        System.out.println("total time to remove data: " + ((end - start) * Math.pow(10, -3)) + " seconds");
         }
 
     public static void removeString(String[] s){
+        System.out.print("Searching and removing ");
+        double start = System.currentTimeMillis();
             for (int a = 0; a < s.length; a++) {
                 if(s.equals(null))
                     throw new IllegalArgumentException("name OR code cannot be null!");
-                if (s[a] == null) {
+                if (s[a] == null)
                     continue;
-                }
+                System.out.print(s[a]+" ");
                     int i = 0;
                     Node empty = new Node("deleted", "del", 0, 0.0);
                     while (i < size) {
@@ -150,6 +161,9 @@ public class LPHashTable<T> {
                         i++;
                     }
                 }
+        double end = System.currentTimeMillis();
+        System.out.println("");
+        System.out.println("total time to remove data: " + ((end - start) * Math.pow(10, -3)) + " seconds");
             }
 
     public void Print() { // A method to print the HashTable with its indecies.
