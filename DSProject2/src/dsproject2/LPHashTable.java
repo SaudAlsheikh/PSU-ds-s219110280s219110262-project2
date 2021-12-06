@@ -13,17 +13,21 @@ public class LPHashTable<T> {
     public static int col = 0;
     public static int capacity = 0; // a counter to count the # of elements in the array.
 
-    public LPHashTable(String inPath, int c, int s, int prime) throws Exception {
+    public LPHashTable(String inPath,String outPath, int c, int s,int prime,String[] keys) throws Exception {
 
-        col = c;
+        System.out.println("Reading data...");
+        this.col = c;
         size = s;
         p = prime;
         arr = new Node[size];
         long start = System.currentTimeMillis();
         readFile(inPath);
         long end = System.currentTimeMillis();
-        System.out.println("total time to read data: "+((end-start)* Math.pow(10,-3))+" s");
-        System.out.println("Capacity is: " + capacity +  " & size is: " + size + "\n" + "Load Factor is: " + (double)capacity/size);
+        System.out.println("total time to read data: " + ((end - start) * Math.pow(10, -3)) + " s");
+        isInteger(keys);
+        writeFile(outPath);
+        System.out.println("load factor = " + (double)capacity/size);
+
     }
 
     public static void put(Node n) throws Exception {
@@ -83,11 +87,11 @@ public class LPHashTable<T> {
             String line = inFile.nextLine();
             String[] col = line.split(Character.toString(',')); // arr col to store the data of each row based on splitting whenever finds a comma
             Node temp;
-            if (col.length <= 4) { // File A, B, C
+            if (col.length == 4) { // File A, B, C
                 temp = new Node(col[0], col[1], Integer.parseInt(col[2]), Double.parseDouble(col[3]));
                     put(temp);
                                  }
-            else { // File D
+            else if(col.length ==9) { // File D
                 temp = new Node(col[0], col[1], Integer.parseInt(col[2]), Double.parseDouble(col[3]), Double.parseDouble(col[4])
                 , Double.parseDouble(col[5]), Double.parseDouble(col[6]),Double.parseDouble(col[7]),Double.parseDouble(col[8]));
                     put(temp);
@@ -112,31 +116,41 @@ public class LPHashTable<T> {
     }
 
 
-    public void removeData(int year) {
-        if (year < 0)
-            throw new IllegalArgumentException("Year cannot be negative!");
-        int i = 0;
-        Node empty = new Node("deleted", "del", 0, 0.0);
-        while (i < size) {
-            if (arr[i] != null)
-                if (arr[i].year == year)
-                    arr[i] = empty;
-            i++;
+    public static void removeInt(int[] y) {
+        for (int a = 0; a < y.length; a++) {
+            if (y[a] < 0)
+                throw new IllegalArgumentException("Year cannot be negative!");
+            if (y[a] == 0) {
+                continue;
+            }
+                int i = 0;
+                Node empty = new Node("deleted", "del", 0, 0.0);
+                while (i < size) {
+                    if (arr[i] != null)
+                        if (arr[i].year == y[a])
+                            arr[i] = empty;
+                    i++;
+                }
+            }
         }
-    }
 
-    public void removeData(String s) {
-        if (s.equals(null))
-            throw new IllegalArgumentException("name OR code cannot be null!");
-        int i = 0;
-        Node empty = new Node("deleted", "del", 0, 0.0);
-        while (i < size) {
-            if(arr[i] != null)
-            if (arr[i].name.equals(s) || arr[i].CCode.equals(s))
-                arr[i] = empty;
-            i++;
-        }
-    }
+    public static void removeString(String[] s){
+            for (int a = 0; a < s.length; a++) {
+                if(s.equals(null))
+                    throw new IllegalArgumentException("name OR code cannot be null!");
+                if (s[a] == null) {
+                    continue;
+                }
+                    int i = 0;
+                    Node empty = new Node("deleted", "del", 0, 0.0);
+                    while (i < size) {
+                        if (arr[i] != null)
+                            if (arr[i].name.equals(s[a]) || arr[i].CCode.equals(s[a]))
+                                arr[i] = empty;
+                        i++;
+                    }
+                }
+            }
 
     public void Print() { // A method to print the HashTable with its indecies.
         for (int i = 0; i < size; i++) {
@@ -147,4 +161,21 @@ public class LPHashTable<T> {
         }
 
     }
+    public static String isInteger(String[] nums) {
+        try {
+            int num = Integer.parseInt(nums[0]);
+        } catch (NumberFormatException nfe) {
+            removeString(nums);
+            return " ";
+        }
+        int[] years = new int[5];
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == null)
+                continue;
+            years[i] = Integer.parseInt(nums[i]);
+        }
+        removeInt(years);
+        return" ";
+    }
 }
+
