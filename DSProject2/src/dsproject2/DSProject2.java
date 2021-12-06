@@ -15,6 +15,7 @@ public class DSProject2<T> {
 
         System.out.println("please enter the method: (1 for LPM) (2 for Chaining)");
         int type = scan.nextInt();
+       // type = Integer.parseInt(args[4]); heeeeeeeeeeerrrrrrrrrrrreeeeeeeeeeee
         if (type == 2) {
             System.out.println("num of keys");
             int number= scan.nextInt();
@@ -30,6 +31,19 @@ public class DSProject2<T> {
                 System.out.println(keys[j]);
 
             HashTable h = new HashTable("C:\\Users\\user\\Desktop\\EXCEL FILES\\C.csv","C:\\Users\\user\\Desktop\\EXCEL FILES\\outPut.csv", 2, 24000, 313,keys);
+            //heeeeeeeeeerrrrrrrrrrrrrreeeeeeeeeeeeeeeeee
+          /*  int g =5;
+            int s=0;
+            while(args[g] != null){
+                keys[s]=args[g];
+                s++;
+            }
+            HashTable h = new HashTable(args[0],args[1],Integer.parseInt(args[2]),Integer.parseInt(args[3]),Integer.parseInt(args[5]),keys); */
+
+            //enddddddddddddddddddddddddddddddddd
+
+
+
 
 
            /* long start = System.currentTimeMillis();
