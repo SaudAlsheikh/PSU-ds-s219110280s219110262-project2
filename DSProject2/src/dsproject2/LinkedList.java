@@ -14,9 +14,7 @@ public class LinkedList<T> {
     public int lSize;
 //
 
-    public void insertLast(Node n) { // A method to insert a block into to the end of a list.
-
-        // tmp.prev = tail;
+    public void insertLast(Node n) { // A method to insert a node into to the end of a list.
         n.next = null;
         if (tail != null)
             tail.next = n;
@@ -27,7 +25,7 @@ public class LinkedList<T> {
     }
 
 
-    public void printList() { // A method to print the list and show it's blocks in order from head to tail.
+    public void printList() { // A method to print the list and show it's nodes in order from head to tail.
         int c = 0;
         Node cur = head;
         while (cur != null) {
@@ -42,7 +40,7 @@ public class LinkedList<T> {
 
     }
 
-    public void deletePos(int pos) {
+    public void deletePos(int pos) { // A method to delete a node from a certain position.
         if (pos == 0) deleteHead();
         if (pos == lSize - 1) deleteTail();
         if (pos <= 0 || pos >= lSize - 1) {
