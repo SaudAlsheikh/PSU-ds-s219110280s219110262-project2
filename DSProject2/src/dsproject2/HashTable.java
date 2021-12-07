@@ -12,11 +12,11 @@ public class HashTable<T> {
     public static int p = 0;
     public static int col = 0;
     public static int capacity = 0;
-   // public static String[] Rkeys= new String[5];
+
 
     public HashTable(String inPath,String outPath, int c, int s,int prime,String[] keys) throws IOException { // constructor
         System.out.println("Reading data...");
-        this.col = c;
+        col = c;
         size = s;
         p = prime;
         arr = new LinkedList[size];
@@ -34,10 +34,10 @@ public class HashTable<T> {
         int x = 0;
         switch (col) { // switch statement to determine which column to hash
             case 1:
-                x = (int) hash(n.name);
+                x = hash(n.name);
                 break;
             case 2:
-                x = (int) hash(n.CCode);
+                x = hash(n.CCode);
                 break;
             case 3:
                 x = (int) hash(n.year);
@@ -151,7 +151,7 @@ public class HashTable<T> {
             }
         }
         double end = System.currentTimeMillis();
-        System.out.println("");
+        System.out.println();
         System.out.println("total time to remove data: " + ((end - start) * Math.pow(10, -3)) + " seconds");
     }
 
@@ -195,7 +195,7 @@ public class HashTable<T> {
                 }
             }
         double end = System.currentTimeMillis();
-        System.out.println("");
+        System.out.println();
         System.out.println("total time to remove data: " + ((end - start) * Math.pow(10, -3)) + " seconds");
         }
 

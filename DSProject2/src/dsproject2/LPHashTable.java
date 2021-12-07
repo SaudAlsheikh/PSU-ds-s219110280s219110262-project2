@@ -16,7 +16,7 @@ public class LPHashTable<T> {
     public LPHashTable(String inPath,String outPath, int c, int s,int prime,String[] keys) throws Exception {
 
         System.out.println("Reading data...");
-        this.col = c;
+        col = c;
         size = s;
         p = prime;
         arr = new Node[size];
@@ -37,10 +37,10 @@ public class LPHashTable<T> {
         switch (col) { // Switch statement to determine which column to hash.
 
             case 1:
-                x = (int) hash(n.name);
+                x = hash(n.name);
                 break;
             case 2:
-                x = (int) hash(n.CCode);
+                x = hash(n.CCode);
                 break;
             case 3:
                 x = (int) hash(n.year);
@@ -139,7 +139,7 @@ public class LPHashTable<T> {
                 }
             }
         double end = System.currentTimeMillis();
-        System.out.println("");
+        System.out.println();
         System.out.println("total time to remove data: " + ((end - start) * Math.pow(10, -3)) + " seconds");
         }
 
@@ -162,7 +162,7 @@ public class LPHashTable<T> {
                     }
                 }
         double end = System.currentTimeMillis();
-        System.out.println("");
+        System.out.println();
         System.out.println("total time to remove data: " + ((end - start) * Math.pow(10, -3)) + " seconds");
             }
 
